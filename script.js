@@ -22,3 +22,18 @@ document.querySelectorAll('.shot img').forEach((img) => {
   if (img.complete && img.naturalWidth === 0) markEmpty();
   img.addEventListener('error', markEmpty);
 });
+
+// Mobile menu: toggle the nav, and close it after a link is tapped.
+const menuBtn = document.querySelector('.menu-btn');
+const siteNav = document.getElementById('site-nav');
+
+function setMenu(open) {
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  siteNav.classList.toggle('is-open', open);
+}
+
+if (menuBtn && siteNav) {
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  siteNav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+}
